@@ -1,0 +1,34 @@
+plugins {
+    id 'java'  // ou outro plugin se necessário
+    id 'application'  // Adicionando o plugin de aplicação
+}
+
+repositories {
+    mavenCentral()  // Repositório para dependências
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13'  // Exemplo de dependência de teste
+}
+
+mainClassName = 'br.ufrn.imd.Main'  // Defina o nome da classe principal aqui
+
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'  // Define o diretório do código-fonte
+        }
+        resources {
+            srcDir 'src/main/resources'  // Define o diretório de recursos
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'  // Define o diretório de testes
+        }
+        resources {
+            srcDir 'src/test/resources'  // Define os recursos de teste
+        }
+    }
+}
