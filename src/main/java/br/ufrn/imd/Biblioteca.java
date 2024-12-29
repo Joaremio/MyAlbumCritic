@@ -3,6 +3,7 @@ package br.ufrn.imd;
 import org.w3c.dom.ls.LSOutput;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public interface Biblioteca {
@@ -54,15 +55,50 @@ public interface Biblioteca {
     }
 
 
-    static void pesquisar(String title){
-        for(Album album: albums){
-            if(album.getTitle().equals(title)){
-                System.out.println("Album encontrado com sucesso:");
-                System.out.println(album.toString());
-                return;
+    static void pesquisar(String title) {
+        boolean found = false;  // Variável para verificar se algum álbum foi encontrado
+
+        // Busca por título ou artista
+        for (Album album : albums) {
+            // Verificando se o título ou o artista do álbum corresponde à pesquisa
+            if (album.getTitle().equalsIgnoreCase(title) || album.getArtist().equalsIgnoreCase(title)) {
+                if (!found) {
+                    System.out.println("Álbuns encontrados para: " + title);
+                    System.out.println("------------------------------------------------");
+                    found = true;  // Marca que ao menos um álbum foi encontrado
+                }
+                System.out.println(album.toString());  // Exibe o álbum encontrado
+                System.out.println("------------------------------------------------");
             }
         }
-        System.out.println("Nennhum disco com esse nome foi adicionado a biblioteca!");
+
+        // Caso não encontre nenhum álbum
+        if (!found) {
+            System.out.println("Nenhum álbum encontrado para o título ou artista: " + title);
+        }
+    }
+
+
+    static void classificarPor(Classificar classificar) {
+        Comparador comparador = new Comparador();
+
+        switch (classificar) {
+            case NOTAS -> {
+                comparador.ordenarNotas();
+                comparador.aplicarOrdem(albums);
+                albums.forEach(album -> System.out.println("Album: " + album.getTitle() + "\nArtista: " + album.getArtist() + "\nNota: " + album.getNote() + "\n------------------------------------------------"));
+            }
+            case ORDEM_ALFABETICA -> {
+                comparador.ordenarPorNome();
+                comparador.aplicarOrdem(albums);
+                albums.forEach(album -> System.out.println(album.toString()));
+            }
+            case ANO -> {
+                comparador.ordenarPorAno();
+                comparador.aplicarOrdem(albums);
+                albums.forEach(album -> System.out.println(album.toString()));
+            }
+        }
     }
 
 }

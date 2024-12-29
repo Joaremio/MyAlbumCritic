@@ -27,7 +27,7 @@ public class Album implements Comparable<Album>{
 
     @Override
     public String toString() {
-        return "Álbum: " + getTitle() + "\nArtista: " + getArtist() + "\nAno: " + getYear()+ "\nGênero: " + getGenre();
+        return "Álbum: " + getTitle() + "\nArtista: " + getArtist() + "\nAno: " + getYear()+ "\nGênero: " + getGenre() + "\n------------------------------------------------";
     }
 
     public String getOpinion() {
